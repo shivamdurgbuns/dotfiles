@@ -124,4 +124,58 @@ eval "$(zoxide init --cmd cd zsh)"
 export PATH="/Users/sdurgbuns/.antigravity/antigravity/bin:$PATH"
 
 # adding fzf-git
-source ~/dotfiles/zsh/fzf-git.sh
+[[ -f ~/code/my-playground/dotfiles/zsh/fzf-git.sh ]] && source ~/code/my-playground/dotfiles/zsh/fzf-git.sh
+
+# 1. Prevent virtualenv from changing the prompt automatically (Must be set early)
+export VIRTUAL_ENV_DISABLE_PROMPT=1
+
+# 2. Enable Zsh's version control info system (for Git)
+autoload -Uz vcs_info
+precmd() { vcs_info }
+zstyle ':vcs_info:git:*' formats '%F{green}(%b)%f '
+zstyle ':vcs_info:git:*' actionformats '%F{green}(%b|%a)%f '
+
+# 3. Enable parameter expansion in the prompt
+setopt PROMPT_SUBST
+
+# 4. Create a function to dynamically check for Python/Conda environments
+get_env_name() {
+    if [[ -n "$CONDA_DEFAULT_ENV" ]]; then
+        echo "%F{yellow}($CONDA_DEFAULT_ENV)%f "
+    elif [[ -n "$VIRTUAL_ENV" ]]; then
+        echo "%F{yellow}($(basename "$VIRTUAL_ENV"))%f "
+    else
+        echo ""
+    fi
+}
+
+# 5. Define your clean custom prompt
+PROMPT='$(get_env_name)[%n@%m] %F{red}%1~%f %% ${vcs_info_msg_0_}'
+
+# 6. Pyenv settings
+export PYENV_ROOT="$HOME/.pyenv"
+[[ -d $PYENV_ROOT/bin ]] && export PATH="$PYENV_ROOT/bin:$PATH"
+eval "$(pyenv init -)"
+
+# Additional PATH
+export PATH="$HOME/.local/bin:$PATH"
+
+# Aliases
+alias ll='eza -la --git'
+alias ls='eza'
+alias grep='rg'
+alias lg='lazygit'
+
+
+# Google Cloud SDK
+if [ -f '/Users/sdurgbun/installer-files/google-cloud-sdk/path.zsh.inc' ]; then . '/Users/sdurgbun/installer-files/google-cloud-sdk/path.zsh.inc'; fi
+if [ -f '/Users/sdurgbun/installer-files/google-cloud-sdk/completion.zsh.inc' ]; then . '/Users/sdurgbun/installer-files/google-cloud-sdk/completion.zsh.inc'; fi
+
+# Claude Code Vertex AI settings
+export CLAUDE_CODE_USE_VERTEX=1
+export CLOUD_ML_REGION=global
+export ANTHROPIC_VERTEX_PROJECT_ID=itpc-gcp-core-pe-eng-claude
+
+# Zsh plugins - autosuggestions and syntax highlighting
+source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
