@@ -1,0 +1,62 @@
+" Basic Vim Configuration
+
+" Enable syntax highlighting
+syntax on
+
+" Enable file type detection and plugins
+filetype plugin indent on
+
+" Color scheme
+set background=dark
+colorscheme default
+
+" Enable 256 colors
+set t_Co=256
+
+" Line numbers
+set number
+set relativenumber
+
+" Search settings
+set ignorecase      " Case insensitive search
+set smartcase       " Case sensitive if uppercase present
+set hlsearch        " Highlight search results
+set incsearch       " Incremental search
+
+" Indentation
+set autoindent
+set smartindent
+set tabstop=4
+set shiftwidth=4
+set expandtab       " Use spaces instead of tabs
+
+" UI improvements
+set showmatch       " Show matching brackets
+set ruler           " Show cursor position
+set showcmd         " Show command in bottom bar
+set wildmenu        " Visual autocomplete for command menu
+set laststatus=2    " Always show status line
+set cursorline      " Highlight current line
+
+" Better backspace behavior
+set backspace=indent,eol,start
+
+" Enable mouse support
+set mouse=a
+
+" Keep more context when scrolling
+set scrolloff=5
+
+" Don't create backup files
+set nobackup
+set nowritebackup
+set noswapfile
+
+" Better performance
+set lazyredraw
+
+" Auto reload files changed outside vim
+set autoread
+
+" Status line
+set statusline=%F\ %m%r%h%w\ [%{&ff}]\ [%Y]\ [%04l,%04v]\ [%p%%]\ [LEN=%L]
