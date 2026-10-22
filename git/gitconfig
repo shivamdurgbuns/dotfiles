@@ -8,10 +8,13 @@
     navigate = true
     side-by-side = true
     line-numbers = true
-    syntax-theme = Catppuccin-mocha
+    syntax-theme = Catppuccin Mocha
 
 [merge]
     conflictstyle = diff3
 
 [diff]
     colorMoved = default
+[user]
+	name = Shivam Durgbuns
+	email = sdurgbun@redhat.com
