@@ -6,6 +6,7 @@ Personal development environment configuration files.
 
 This repository contains configuration for:
 
+- **alacritty** - GPU-accelerated terminal emulator with Catppuccin Mocha theme
 - **tmux** - Terminal multiplexer with session management, fuzzy finder, and theme
 - **zsh** - Shell configuration with Oh My Zsh and fzf integration
 - **git** - Git settings with delta diff viewer

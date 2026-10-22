@@ -57,6 +57,15 @@ fi
 ln -sf "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
 echo "✅ Linked .gitconfig"
 
+# --- Alacritty Configuration ---
+mkdir -p "$CONFIG_DIR/alacritty"
+if [ -f "$CONFIG_DIR/alacritty/alacritty.toml" ]; then
+    echo "⚠️  Found existing alacritty.toml, backing up to alacritty.toml.bak"
+    mv "$CONFIG_DIR/alacritty/alacritty.toml" "$CONFIG_DIR/alacritty/alacritty.toml.bak"
+fi
+ln -sf "$DOTFILES_DIR/alacritty/alacritty.toml" "$CONFIG_DIR/alacritty/alacritty.toml"
+echo "✅ Linked alacritty.toml"
+
 # --- Vim Configuration ---
 if [ -f "$HOME/.vimrc" ]; then
     echo "⚠️  Found existing .vimrc, backing up to .vimrc.bak"
