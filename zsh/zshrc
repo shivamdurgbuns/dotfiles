@@ -116,10 +116,6 @@ alias conf-fzf='vim ~/dotfiles/zsh/fzf.zsh'
 alias reload-zsh='source ~/.zshrc && echo "Zsh reloaded."'
 alias reload-tmux='tmux source-file ~/.config/tmux/tmux.conf && echo "Tmux reloaded."'
 
-
-#Setting up Zoxide
-eval "$(zoxide init --cmd cd zsh)"
-
 # Added by Antigravity
 export PATH="/Users/sdurgbuns/.antigravity/antigravity/bin:$PATH"
 
@@ -150,7 +146,8 @@ get_env_name() {
 }
 
 # 5. Define your clean custom prompt
-PROMPT='$(get_env_name)[%n@%m] %F{red}%1~%f %% ${vcs_info_msg_0_}'
+_CACHED_HOSTNAME=$(scutil --get ComputerName)
+PROMPT='$(get_env_name)[%n@${_CACHED_HOSTNAME}] %F{red}%1~%f %% ${vcs_info_msg_0_}'
 
 # 6. Pyenv settings
 export PYENV_ROOT="$HOME/.pyenv"
@@ -179,3 +176,6 @@ export ANTHROPIC_VERTEX_PROJECT_ID=itpc-gcp-core-pe-eng-claude
 # Zsh plugins - autosuggestions and syntax highlighting
 source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Setting up Zoxide (MUST be at the end after all other plugins)
+eval "$(zoxide init --cmd cd zsh)"
