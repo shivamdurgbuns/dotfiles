@@ -8,24 +8,25 @@ padding.x = 6
 padding.y = 6
 decorations = "buttonless"  # Remove title bar
 option_as_alt = "Both"      # Make Option key work as Alt
+startup_mode = "Maximized"  # Start maximized (Fullscreen, Maximized, or Windowed)
 
 [font]
-size = 14.0
+size = 12.0
 
 [font.normal]
-family = "MesloLGS Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Regular"
 
 [font.bold]
-family = "MesloLGS Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Bold"
 
 [font.italic]
-family = "MesloLGS Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Italic"
 
 [font.bold_italic]
-family = "MesloLGS Nerd Font"
+family = "JetBrainsMono Nerd Font"
 style = "Bold Italic"
 
 [scrolling]
@@ -40,12 +41,14 @@ blink_interval = 750
 save_to_clipboard = true
 
 [colors]
-# Catppuccin Mocha theme
+# Sharp colors matching iTerm2
+draw_bold_text_with_bright_colors = true
+
 [colors.primary]
-background = "#1e1e2e"
-foreground = "#cdd6f4"
-dim_foreground = "#7f849c"
-bright_foreground = "#cdd6f4"
+background = "#000000"
+foreground = "#bbbbbb"
+dim_foreground = "#888888"
+bright_foreground = "#ffffff"
 
 [colors.cursor]
 text = "#1e1e2e"
@@ -84,24 +87,24 @@ text = "CellBackground"
 background = "CellForeground"
 
 [colors.normal]
-black = "#45475a"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#bac2de"
+black = "#000000"
+red = "#c91b00"
+green = "#00c200"
+yellow = "#c7c400"
+blue = "#0225c7"
+magenta = "#ca30c7"
+cyan = "#00c5c7"
+white = "#c7c7c7"
 
 [colors.bright]
-black = "#585b70"
-red = "#f38ba8"
-green = "#a6e3a1"
-yellow = "#f9e2af"
-blue = "#89b4fa"
-magenta = "#f5c2e7"
-cyan = "#94e2d5"
-white = "#a6adc8"
+black = "#676767"
+red = "#ff6d67"
+green = "#5ff967"
+yellow = "#fefb67"
+blue = "#6871ff"
+magenta = "#ff76ff"
+cyan = "#5ffdff"
+white = "#feffff"
 
 [colors.dim]
 black = "#45475a"
@@ -119,6 +122,10 @@ duration = 0
 
 [env]
 TERM = "xterm-256color"
+
+[terminal.shell]
+program = "/bin/zsh"
+args = ["-l", "-c", "tmux attach || tmux"]
 
 # Copy/paste keybindings (macOS standard)
 [[keyboard.bindings]]
