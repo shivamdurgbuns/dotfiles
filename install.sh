@@ -1,8 +1,11 @@
 #!/bin/bash
+set -e
 
-# Define directories
-DOTFILES_DIR="$HOME/dotfiles"
+# Get the directory where this script is located
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 CONFIG_DIR="$HOME/.config"
+
+echo "📂 Using dotfiles directory: $DOTFILES_DIR"
 
 # Create necessary directories if they don't exist
 mkdir -p "$CONFIG_DIR/tmux"
@@ -10,7 +13,7 @@ mkdir -p "$CONFIG_DIR/zsh"
 
 echo "🔗 Starting symlinking..."
 
-# --- Tmux Symlink ---
+# --- Tmux Configuration ---
 if [ -f "$HOME/.config/tmux/tmux.conf" ]; then
     echo "⚠️  Found existing tmux.conf, backing up to tmux.conf.bak"
     mv "$HOME/.config/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf.bak"
@@ -18,7 +21,21 @@ fi
 ln -sf "$DOTFILES_DIR/tmux/tmux.conf" "$HOME/.config/tmux/tmux.conf"
 echo "✅ Linked tmux.conf"
 
-# --- Zsh Symlinks ---
+if [ -f "$HOME/.config/tmux/tmux.reset.conf" ]; then
+    mv "$HOME/.config/tmux/tmux.reset.conf" "$HOME/.config/tmux/tmux.reset.conf.bak"
+fi
+ln -sf "$DOTFILES_DIR/tmux/tmux.reset.conf" "$HOME/.config/tmux/tmux.reset.conf"
+echo "✅ Linked tmux.reset.conf"
+
+# Symlink tmux scripts directory
+if [ -e "$HOME/.config/tmux/scripts" ]; then
+    echo "⚠️  Found existing tmux scripts, backing up to scripts.bak"
+    mv "$HOME/.config/tmux/scripts" "$HOME/.config/tmux/scripts.bak"
+fi
+ln -sf "$DOTFILES_DIR/tmux/scripts" "$HOME/.config/tmux/scripts"
+echo "✅ Linked tmux scripts directory"
+
+# --- Zsh Configuration ---
 if [ -f "$HOME/.zshrc" ]; then
     echo "⚠️  Found existing .zshrc, backing up to .zshrc.bak"
     mv "$HOME/.zshrc" "$HOME/.zshrc.bak"
@@ -29,7 +46,30 @@ echo "✅ Linked .zshrc"
 ln -sf "$DOTFILES_DIR/zsh/fzf.zsh" "$CONFIG_DIR/zsh/fzf.zsh"
 echo "✅ Linked fzf.zsh"
 
-ln -sf "$DOTFILES_DIR/zsh/git-prompt.sh" "$CONFIG_DIR/zsh/git-prompt.sh"
-echo "✅ Linked git-prompt.sh"
+ln -sf "$DOTFILES_DIR/zsh/fzf-git.sh" "$CONFIG_DIR/zsh/fzf-git.sh"
+echo "✅ Linked fzf-git.sh"
 
-echo "🚀 All done! Please run 'source ~/.zshrc' to apply changes."
+# --- Git Configuration ---
+if [ -f "$HOME/.gitconfig" ]; then
+    echo "⚠️  Found existing .gitconfig, backing up to .gitconfig.bak"
+    mv "$HOME/.gitconfig" "$HOME/.gitconfig.bak"
+fi
+ln -sf "$DOTFILES_DIR/git/gitconfig" "$HOME/.gitconfig"
+echo "✅ Linked .gitconfig"
+
+# --- Vim Configuration ---
+if [ -f "$HOME/.vimrc" ]; then
+    echo "⚠️  Found existing .vimrc, backing up to .vimrc.bak"
+    mv "$HOME/.vimrc" "$HOME/.vimrc.bak"
+fi
+ln -sf "$DOTFILES_DIR/vim/vimrc" "$HOME/.vimrc"
+echo "✅ Linked .vimrc"
+
+echo ""
+echo "🚀 All done! Symlinks created successfully."
+echo ""
+echo "Next steps:"
+echo "  1. Install tmux plugin manager: git clone https://github.com/tmux-plugins/tpm ~/.config/tmux/plugins/tpm"
+echo "  2. Install Oh My Zsh if not already installed: sh -c \"\$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)\""
+echo "  3. Reload zsh: source ~/.zshrc"
+echo "  4. Start tmux and install plugins: tmux, then press prefix + I"
